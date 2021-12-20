@@ -4,7 +4,7 @@ import 'package:surfwar_flutter/services/global.dart';
 
 class NotesService {
   static saveNoteLocally(Note note) {
-    print('saving');
+    print('SAVING NOTE');
     Global.boxes[BOX_NAME.NOTES_BOX]!.put(note.id, note);
   }
 

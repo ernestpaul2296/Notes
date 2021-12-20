@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:surfwar_flutter/models/note.dart';
 import 'package:surfwar_flutter/models/note_content.dart';
 import 'package:surfwar_flutter/pages/pages.dart';
+import 'package:surfwar_flutter/services/global.dart';
 import 'package:surfwar_flutter/services/notes.dart';
 import 'package:surfwar_flutter/services/utils.dart';
 import 'package:surfwar_flutter/styles/styles.dart';
@@ -21,50 +23,62 @@ class NotePageButtons extends StatelessWidget {
         TextButton(
           // backgroundColor: AppColors.white,
           onPressed: () {
+            List note = Global.boxes[BOX_NAME.NOTES_BOX]!.values.toList();
+
             String contentId = Utils.getSecureString(20);
             NotesService.addNoteContent(
-                id,
-                NoteContent(
-                    fontSize: 18,
-                    noteContentType: 'HORIZONTAL_LINE',
-                    positionX: MediaQuery.of(context).size.width / 2,
-                    positionY: MediaQuery.of(context).size.height / 2,
-                    height: 4,
-                    width: 100,
-                    color: 0xff828282,
-                    noteContentId: contentId,
-                    borderColor: 0xff828282,
-                    text: ''));
+              id,
+              NoteContent(
+                fontSize: 18,
+                noteContentType: 'LINE',
+                positionX: MediaQuery.of(context).size.width / 2,
+                positionY: MediaQuery.of(context).size.height / 2,
+                height: 4,
+                width: 100,
+                color: 0xff828282,
+                noteContentId: contentId,
+                borderColor: 0xff828282,
+                text: '',
+                endPointX: MediaQuery.of(context).size.width - 100,
+                centreX: 50,
+                centreY: 50,
+                controlPointX: 50,
+                controlPointY: 50,
+                endPointY: 20,
+                startPointX: MediaQuery.of(context).size.width - 100,
+                startPointY: MediaQuery.of(context).size.height / 4,
+              ),
+            );
           },
-          child: Container(
-            height: 3,
-            width: 48,
+          child: Icon(
+            Icons.arrow_right_alt,
+            size: 48,
             color: Colors.black,
           ),
         ),
-        TextButton(
-          // backgroundColor: AppColors.white,
-          onPressed: () {
-            String contentId = Utils.getSecureString(20);
-            NotesService.addNoteContent(
-                id,
-                NoteContent(
-                    fontSize: 18,
-                    noteContentType: 'VERTICAL_LINE',
-                    positionX: MediaQuery.of(context).size.width / 2,
-                    positionY: MediaQuery.of(context).size.height / 2,
-                    height: 100,
-                    width: 4,
-                    color: 0xff828282,
-                    noteContentId: contentId,
-                    borderColor: 0xff828282,
-                    text: ''));
-          },
-          child: Text(
-            '|',
-            style: AppFonts.primaryHeader,
-          ),
-        ),
+        // TextButton(
+        //   // backgroundColor: AppColors.white,
+        //   onPressed: () {
+        //     String contentId = Utils.getSecureString(20);
+        //     NotesService.addNoteContent(
+        //         id,
+        //         NoteContent(
+        //             fontSize: 18,
+        //             noteContentType: 'VERTICAL_LINE',
+        //             positionX: MediaQuery.of(context).size.width / 2,
+        //             positionY: MediaQuery.of(context).size.height / 2,
+        //             height: 100,
+        //             width: 4,
+        //             color: 0xff828282,
+        //             noteContentId: contentId,
+        //             borderColor: 0xff828282,
+        //             text: ''));
+        //   },
+        //   child: Text(
+        //     '|',
+        //     style: AppFonts.primaryHeader,
+        //   ),
+        // ),
         TextButton(
           // backgroundColor: AppColors.white,
           onPressed: () {
@@ -81,7 +95,7 @@ class NotePageButtons extends StatelessWidget {
                     color: 0xff828282,
                     noteContentId: contentId,
                     borderColor: 0xff828282,
-                    text: 'Edit Text'));
+                    text: ''));
           },
           child: Text(
             'T',
@@ -103,9 +117,9 @@ class NotePageButtons extends StatelessWidget {
                   positionY: MediaQuery.of(context).size.height / 2,
                   height: 100,
                   width: 100,
-                  color: 0xff828282,
+                  color: 0xffC4C4C4,
                   noteContentId: contentId,
-                  borderColor: 0xff828282,
+                  borderColor: 0xffC4C4C4,
                   text: '',
                 ));
           },
@@ -139,9 +153,9 @@ class NotePageButtons extends StatelessWidget {
                     positionY: MediaQuery.of(context).size.height / 2,
                     height: 100,
                     width: 100,
-                    color: 0xff828282,
+                    color: 0xffC4C4C4,
                     noteContentId: contentId,
-                    borderColor: 0xff828282,
+                    borderColor: 0xffC4C4C4,
                     text: '',
                   ));
             },
@@ -165,9 +179,9 @@ class NotePageButtons extends StatelessWidget {
                     positionY: MediaQuery.of(context).size.height / 2,
                     height: 100,
                     width: 100,
-                    color: 0xff828282,
+                    color: 0xffC4C4C4,
                     noteContentId: contentId,
-                    borderColor: 0xff828282,
+                    borderColor: 0xffC4C4C4,
                     text: '',
                   ));
             },
@@ -191,9 +205,9 @@ class NotePageButtons extends StatelessWidget {
                   positionY: MediaQuery.of(context).size.height / 2,
                   height: 200,
                   width: 100,
-                  color: 0xff828282,
+                  color: 0xffC4C4C4,
                   noteContentId: contentId,
-                  borderColor: 0xff828282,
+                  borderColor: 0xffC4C4C4,
                   text: '',
                 ));
           },
@@ -224,9 +238,9 @@ class NotePageButtons extends StatelessWidget {
                   positionY: MediaQuery.of(context).size.height / 2,
                   height: 100,
                   width: 100,
-                  color: 0xff828282,
+                  color: 0xffC4C4C4,
                   noteContentId: contentId,
-                  borderColor: 0xff828282,
+                  borderColor: 0xffC4C4C4,
                   text: '',
                 ));
           },

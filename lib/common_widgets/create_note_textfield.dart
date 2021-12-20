@@ -27,6 +27,7 @@ class CreateNoteTextFieldWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
         child: TextField(
+          textInputAction: TextInputAction.done,
           maxLines: null,
           onEditingComplete: () {
             FocusScope.of(context).requestFocus(FocusNode());

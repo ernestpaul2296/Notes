@@ -26,14 +26,22 @@ class NoteContentAdapter extends TypeAdapter<NoteContent> {
       fontSize: fields[6] as double?,
       noteContentId: fields[7] as String,
       borderColor: fields[8] as int,
-      text: fields[9] as String,
+      text: fields[9] as String?,
+      startPointX: fields[10] as double?,
+      endPointX: fields[11] as double?,
+      startPointY: fields[12] as double?,
+      endPointY: fields[13] as double?,
+      controlPointX: fields[14] as double?,
+      controlPointY: fields[15] as double?,
+      centreX: fields[16] as double?,
+      centreY: fields[17] as double?,
     );
   }
 
   @override
   void write(BinaryWriter writer, NoteContent obj) {
     writer
-      ..writeByte(10)
+      ..writeByte(18)
       ..writeByte(0)
       ..write(obj.noteContentType)
       ..writeByte(1)
@@ -53,7 +61,23 @@ class NoteContentAdapter extends TypeAdapter<NoteContent> {
       ..writeByte(8)
       ..write(obj.borderColor)
       ..writeByte(9)
-      ..write(obj.text);
+      ..write(obj.text)
+      ..writeByte(10)
+      ..write(obj.startPointX)
+      ..writeByte(11)
+      ..write(obj.endPointX)
+      ..writeByte(12)
+      ..write(obj.startPointY)
+      ..writeByte(13)
+      ..write(obj.endPointY)
+      ..writeByte(14)
+      ..write(obj.controlPointX)
+      ..writeByte(15)
+      ..write(obj.controlPointY)
+      ..writeByte(16)
+      ..write(obj.centreX)
+      ..writeByte(17)
+      ..write(obj.centreY);
   }
 
   @override

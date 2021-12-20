@@ -27,7 +27,23 @@ class NoteContent {
   @HiveField(8)
   int borderColor;
   @HiveField(9)
-  String text;
+  String? text;
+  @HiveField(10)
+  double? startPointX;
+  @HiveField(11)
+  double? endPointX;
+  @HiveField(12)
+  double? startPointY;
+  @HiveField(13)
+  double? endPointY;
+  @HiveField(14)
+  double? controlPointX;
+  @HiveField(15)
+  double? controlPointY;
+  @HiveField(16)
+  double? centreX;
+  @HiveField(17)
+  double? centreY;
   NoteContent({
     required this.noteContentType,
     required this.positionX,
@@ -38,6 +54,14 @@ class NoteContent {
     this.fontSize,
     required this.noteContentId,
     required this.borderColor,
-    required this.text,
+    this.text,
+    this.startPointX,
+    this.endPointX,
+    this.startPointY,
+    this.endPointY,
+    this.controlPointX,
+    this.controlPointY,
+    this.centreX,
+    this.centreY,
   });
 }

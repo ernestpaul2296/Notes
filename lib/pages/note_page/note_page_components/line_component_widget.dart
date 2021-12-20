@@ -94,24 +94,6 @@ class LineComponentWidget extends StatelessWidget {
                             )
                           ],
                         ),
-                        Row(
-                          children: [
-                            Text('Position X'),
-                            Spacer(),
-                            TextFieldWidget(
-                              controller: positionXController,
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text('Position Y'),
-                            Spacer(),
-                            TextFieldWidget(
-                              controller: positionYController,
-                            )
-                          ],
-                        ),
                         Spacer(),
                         Row(
                           children: [
