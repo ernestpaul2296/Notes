@@ -29,10 +29,17 @@ class CreateNoteWidget extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(24))),
-          margin: EdgeInsets.all(24),
+          margin: EdgeInsets.symmetric(vertical: 140, horizontal: 24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Text(
+                  'Lets start with your notes name and description !',
+                  style: AppFonts.noteTitle,
+                ),
+              ),
               CreateNoteTextFieldWidget(
                 height: 40,
                 controller: titleController,
@@ -61,7 +68,7 @@ class CreateNoteWidget extends StatelessWidget {
                   },
                   child: Text(
                     'Create Note',
-                    style: AppFonts.noteSubTitle,
+                    style: AppFonts.noteTitle,
                   )),
               TextButton(
                   onPressed: () {

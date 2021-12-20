@@ -96,8 +96,8 @@ class _LineWidgetState extends State<LineWidget> {
       //   ),
       // ),
       Positioned(
-        left: widget.startPointX - 4,
-        top: widget.startPointY - 5,
+        left: widget.startPointX - 18,
+        top: widget.startPointY - 18,
         child: Draggable(
           onDragUpdate: (DragUpdateDetails details) {
             setState(() {
@@ -147,6 +147,7 @@ class _LineWidgetState extends State<LineWidget> {
                 positionX: widget.startPointX,
                 positionY: widget.startPointY,
                 height: 0,
+                fontSize: 2,
                 width: 0,
                 color: 11221122,
                 noteContentId: contentId,
@@ -171,10 +172,14 @@ class _LineWidgetState extends State<LineWidget> {
             width: 30,
             height: 30,
           ),
-          child: Icon(
-            Icons.circle_rounded,
-            color: Colors.black,
-            size: 12,
+          child: Container(
+            color: Colors.transparent,
+            padding: EdgeInsets.all(12),
+            child: Icon(
+              Icons.circle_rounded,
+              color: Colors.black,
+              size: 12,
+            ),
           ),
         ),
       ),

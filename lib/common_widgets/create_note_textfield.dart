@@ -18,14 +18,14 @@ class CreateNoteTextFieldWidget extends StatelessWidget {
       // height: height,
       decoration: BoxDecoration(
         color: AppColors.white,
-        border: Border.all(color: Colors.black, width: 2),
+        border: Border.all(color: AppColors.grey, width: 2),
         borderRadius: BorderRadius.all(
-          Radius.circular(35),
+          Radius.circular(20),
         ),
       ),
       width: MediaQuery.of(context).size.width / 1.5,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 10),
         child: TextField(
           textInputAction: TextInputAction.done,
           maxLines: null,

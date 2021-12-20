@@ -64,23 +64,11 @@ class _DiamondComponentWidgetState extends State<DiamondComponentWidget> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(24))),
-                      margin: EdgeInsets.all(24),
+                      margin:
+                          EdgeInsets.symmetric(vertical: 100, horizontal: 24),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          Transform.rotate(
-                            angle: 7.1,
-                            child: Container(
-                              margin: EdgeInsets.only(top: 24),
-                              height: 100,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Color(widget.e.borderColor)),
-                                color: Color(widget.e.color),
-                              ),
-                            ),
-                          ),
                           SizedBox(
                             height: 24,
                           ),

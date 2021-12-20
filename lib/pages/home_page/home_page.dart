@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                 ),
                 child: notes.length == 0
                     ? EmptyNoteStateWidget()
-                    : NotesWidgetsComponent(notes: notes));
+                    : NotesWidgetsComponent());
           },
         ),
       ),

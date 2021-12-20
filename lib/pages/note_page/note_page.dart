@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:surfwar_flutter/common_widgets/create_note_textfield.dart';
 import 'package:surfwar_flutter/common_widgets/text_field_widget.dart';
@@ -26,7 +27,12 @@ class _NotePageState extends State<NotePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: NotePageButtons(id: widget.id),
+      floatingActionButton: Align(
+        alignment: Alignment.topRight,
+        child: NotePageButtons(
+          id: widget.id,
+        ),
+      ),
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).requestFocus(FocusNode());
@@ -43,9 +49,12 @@ class _NotePageState extends State<NotePage> {
                 onTap: () {
                   print('taped screen');
                 },
-                child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
+                child: GridPaper(
+                  color: AppColors.grey.withOpacity(0.4),
+                  child: Container(
+                    height: MediaQuery.of(context).size.height,
+                    width: MediaQuery.of(context).size.width,
+                  ),
                 ),
               ),
             ));
@@ -222,7 +231,7 @@ class _NotePageState extends State<NotePage> {
                                                       0
                                                   ? double.parse(
                                                       fontSizeController.text)
-                                                  : 12.0,
+                                                  : e.fontSize,
                                               borderColor: borderColor.hashCode,
                                               color: color.hashCode,
                                               height: e.height,
@@ -293,89 +302,114 @@ class _NotePageState extends State<NotePage> {
                           width: 30,
                           height: 30,
                         ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 1),
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(16),
-                            ),
-                          ),
-                          width: MediaQuery.of(context).size.width / 2,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              vertical: 0.0,
-                            ),
-                            child: TextField(
-                              maxLines: null,
-                              onChanged: (event) {
-                                // Note note = Global.boxes[BOX_NAME.NOTES_BOX]!
-                                //     .get(widget.id);
-                                // note.noteContent.removeWhere((element) =>
-                                //     element.noteContentId == e.noteContentId);
-                                e.text = textController.text;
-                                // note.noteContent.add(e);
-                                // NotesService.saveNoteLocally(note);
-                              },
-                              onEditingComplete: () {
-                                Note note = Global.boxes[BOX_NAME.NOTES_BOX]!
-                                    .get(widget.id);
-                                note.noteContent.removeWhere((element) =>
-                                    element.noteContentId == e.noteContentId);
-                                e.text = textController.text;
-                                note.noteContent.add(e);
-                                FocusNode().unfocus();
-                                FocusScope.of(context)
-                                    .requestFocus(FocusNode());
-                                NotesService.saveNoteLocally(note);
-                              },
-                              onSubmitted: (event) {
-                                Note note = Global.boxes[BOX_NAME.NOTES_BOX]!
-                                    .get(widget.id);
-                                note.noteContent.removeWhere((element) =>
-                                    element.noteContentId == e.noteContentId);
-                                e.text = textController.text;
-                                note.noteContent.add(e);
-                                FocusNode().unfocus();
-                                FocusScope.of(context)
-                                    .requestFocus(FocusNode());
-                                NotesService.saveNoteLocally(note);
-                              },
-                              textInputAction: TextInputAction.done,
-                              autofocus: false,
-                              //keyboardType: TextInputType.number,
-                              controller: textController,
-                              cursorColor: Colors.black,
-                              scrollPadding: EdgeInsets.symmetric(
-                                horizontal: 0,
-                              ),
-                              style: TextStyle(
-                                  color: Color(e.color), fontSize: e.fontSize),
-                              decoration: InputDecoration(
-                                hintText: 'Add Text',
-                                // suffixIcon: Icon(Icons.edit),
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 24, vertical: 0),
-                                labelStyle: TextStyle(
-                                  color: Colors.black,
-                                ),
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                ),
-                                filled: true,
-                                fillColor: Colors.transparent,
+                        child: Stack(alignment: Alignment.topRight, children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 6),
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  color: AppColors.grey.withOpacity(0.3),
+                                  offset: Offset.zero,
+                                )
+                              ],
+                              border: Border.all(
+                                  color: Colors.transparent, width: 1),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(16),
                               ),
                             ),
-                          ),
-                        ),
+                            width: MediaQuery.of(context).size.width / 3,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 0.0,
+                              ),
+                              child: TextField(
+                                maxLines: null,
+                                onChanged: (event) {
+                                  // Note note = Global.boxes[BOX_NAME.NOTES_BOX]!
+                                  //     .get(widget.id);
+                                  // note.noteContent.removeWhere((element) =>
+                                  //     element.noteContentId == e.noteContentId);
+                                  e.text = textController.text;
+                                  // note.noteContent.add(e);
+                                  // NotesService.saveNoteLocally(note);
+                                },
+                                onEditingComplete: () {
+                                  Note note = Global.boxes[BOX_NAME.NOTES_BOX]!
+                                      .get(widget.id);
+                                  note.noteContent.removeWhere((element) =>
+                                      element.noteContentId == e.noteContentId);
+                                  e.text = textController.text;
 
-                        // Text(
-                        //   e.text,
-                        //   style: TextStyle(
-                        //     color: Color(e.color),
-                        //     fontSize: e.fontSize ?? 24,
-                        //   ),
-                        // ),
+                                  note.noteContent.add(e);
+                                  FocusNode().unfocus();
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
+                                  NotesService.saveNoteLocally(note);
+                                },
+                                onSubmitted: (event) {
+                                  Note note = Global.boxes[BOX_NAME.NOTES_BOX]!
+                                      .get(widget.id);
+                                  note.noteContent.removeWhere((element) =>
+                                      element.noteContentId == e.noteContentId);
+                                  e.text = textController.text;
+                                  note.noteContent.add(e);
+                                  FocusNode().unfocus();
+                                  FocusScope.of(context)
+                                      .requestFocus(FocusNode());
+                                  NotesService.saveNoteLocally(note);
+                                },
+                                textInputAction: TextInputAction.done,
+                                autofocus: false,
+                                //keyboardType: TextInputType.number,
+                                controller: textController,
+                                cursorColor: Colors.black,
+                                scrollPadding: EdgeInsets.symmetric(
+                                  horizontal: 0,
+                                ),
+                                style: TextStyle(
+                                    color: Color(e.color),
+                                    fontSize: e.fontSize),
+                                decoration: InputDecoration(
+                                  hintText: 'Add Text',
+                                  // suffixIcon: Icon(Icons.edit),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 24, vertical: 0),
+                                  labelStyle: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.transparent,
+                                ),
+                              ),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Note note = Global.boxes[BOX_NAME.NOTES_BOX]!
+                                  .get(widget.id);
+                              note.noteContent.removeWhere((element) =>
+                                  element.noteContentId == e.noteContentId);
+
+                              NotesService.saveNoteLocally(note);
+                            },
+                            child: CircleAvatar(
+                              radius: 8,
+                              backgroundColor: Colors.black,
+                              child: Icon(
+                                Icons.close,
+                                size: 16,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ]),
                       ),
                     ),
                   ));
@@ -394,11 +428,10 @@ class _NotePageState extends State<NotePage> {
             });
 
             return InteractiveViewer(
+              minScale: 0.1,
+              maxScale: 4,
+              panEnabled: true,
               scaleEnabled: true,
-              panEnabled: true, // Set it to false to prevent panning.
-              boundaryMargin: EdgeInsets.all(80),
-              minScale: 20,
-              maxScale: 400,
               child: Stack(
                 children: widgetsToDisplay,
               ),

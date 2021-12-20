@@ -62,19 +62,10 @@ class _ContainerComponentWidgetState extends State<ContainerComponentWidget> {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.all(Radius.circular(24))),
-                    margin: EdgeInsets.all(24),
+                    margin: EdgeInsets.symmetric(vertical: 100, horizontal: 24),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Container(
-                          height: 100,
-                          width: 100,
-                          decoration: BoxDecoration(
-                            border:
-                                Border.all(color: Color(widget.e.borderColor)),
-                            color: Color(widget.e.color),
-                          ),
-                        ),
                         SizedBox(
                           height: 24,
                         ),

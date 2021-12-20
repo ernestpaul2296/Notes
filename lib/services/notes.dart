@@ -14,7 +14,8 @@ class NotesService {
     Global.boxes[BOX_NAME.NOTES_BOX]!.put(id, note);
   }
 
-  deleteNoteLocally(int id) {
-    Global.boxes[BOX_NAME.NOTES_BOX]!.deleteAt(id);
+  deleteNoteLocally(String id) {
+    print('delete function');
+    Global.boxes[BOX_NAME.NOTES_BOX]!.delete((id));
   }
 }

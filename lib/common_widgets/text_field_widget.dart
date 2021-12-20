@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:surfwar_flutter/styles/styles.dart';
 
 class TextFieldWidget extends StatelessWidget {
@@ -22,6 +23,7 @@ class TextFieldWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
         child: TextField(
+          keyboardType: TextInputType.number,
           textInputAction: TextInputAction.done,
           maxLines: null,
           onEditingComplete: () {
