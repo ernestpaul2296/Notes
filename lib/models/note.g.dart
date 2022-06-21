@@ -17,6 +17,7 @@ class NoteAdapter extends TypeAdapter<Note> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Note(
+      transformationControllerValue: (fields[6] as List?)?.cast<double>(),
       id: fields[0] as String,
       title: fields[1] as String,
       description: fields[2] as String,
@@ -29,7 +30,7 @@ class NoteAdapter extends TypeAdapter<Note> {
   @override
   void write(BinaryWriter writer, Note obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class NoteAdapter extends TypeAdapter<Note> {
       ..writeByte(4)
       ..write(obj.lastEditedOn)
       ..writeByte(5)
-      ..write(obj.noteContent);
+      ..write(obj.noteContent)
+      ..writeByte(6)
+      ..write(obj.transformationControllerValue);
   }
 
   @override

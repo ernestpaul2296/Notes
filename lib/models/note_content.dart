@@ -37,14 +37,10 @@ class NoteContent {
   @HiveField(13)
   double? endPointY;
   @HiveField(14)
-  double? controlPointX;
-  @HiveField(15)
-  double? controlPointY;
-  @HiveField(16)
-  double? centreX;
-  @HiveField(17)
-  double? centreY;
+  List<String> connectedComponents;
+
   NoteContent({
+    required this.connectedComponents,
     required this.noteContentType,
     required this.positionX,
     required this.positionY,
@@ -59,9 +55,5 @@ class NoteContent {
     this.endPointX,
     this.startPointY,
     this.endPointY,
-    this.controlPointX,
-    this.controlPointY,
-    this.centreX,
-    this.centreY,
   });
 }

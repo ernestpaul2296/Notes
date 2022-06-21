@@ -17,6 +17,7 @@ class NoteContentAdapter extends TypeAdapter<NoteContent> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return NoteContent(
+      connectedComponents: (fields[14] as List).cast<String>(),
       noteContentType: fields[0] as String,
       positionX: fields[1] as double,
       positionY: fields[2] as double,
@@ -31,17 +32,13 @@ class NoteContentAdapter extends TypeAdapter<NoteContent> {
       endPointX: fields[11] as double?,
       startPointY: fields[12] as double?,
       endPointY: fields[13] as double?,
-      controlPointX: fields[14] as double?,
-      controlPointY: fields[15] as double?,
-      centreX: fields[16] as double?,
-      centreY: fields[17] as double?,
     );
   }
 
   @override
   void write(BinaryWriter writer, NoteContent obj) {
     writer
-      ..writeByte(18)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.noteContentType)
       ..writeByte(1)
@@ -71,13 +68,7 @@ class NoteContentAdapter extends TypeAdapter<NoteContent> {
       ..writeByte(13)
       ..write(obj.endPointY)
       ..writeByte(14)
-      ..write(obj.controlPointX)
-      ..writeByte(15)
-      ..write(obj.controlPointY)
-      ..writeByte(16)
-      ..write(obj.centreX)
-      ..writeByte(17)
-      ..write(obj.centreY);
+      ..write(obj.connectedComponents);
   }
 
   @override

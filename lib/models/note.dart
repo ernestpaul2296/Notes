@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:surfwar_flutter/models/note_content.dart';
 import 'dart:convert';
 
@@ -20,7 +21,10 @@ class Note {
   DateTime lastEditedOn;
   @HiveField(5)
   List<NoteContent> noteContent;
+  @HiveField(6)
+  List<double>? transformationControllerValue;
   Note({
+     this.transformationControllerValue,
     required this.id,
     required this.title,
     required this.description,
@@ -29,3 +33,5 @@ class Note {
     required this.noteContent,
   });
 }
+
+

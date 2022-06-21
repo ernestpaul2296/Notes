@@ -9,6 +9,11 @@ import 'package:surfwar_flutter/services/notes.dart';
 import 'package:surfwar_flutter/services/utils.dart';
 import 'package:surfwar_flutter/styles/styles.dart';
 
+
+ // widgetsToDisplay.add(NotePageButtons(
+            //   id: widget.id,
+            // ));
+
 class NotePageButtons extends StatefulWidget {
   const NotePageButtons({
     Key? key,
@@ -79,6 +84,7 @@ class _NotePageButtonsState extends State<NotePageButtons> {
                   NotesService.addNoteContent(
                     widget.id,
                     NoteContent(
+                      connectedComponents: [],
                       fontSize: 14,
                       noteContentType: 'LINE',
                       positionX: MediaQuery.of(context).size.width / 3,
@@ -90,10 +96,7 @@ class _NotePageButtonsState extends State<NotePageButtons> {
                       borderColor: 0xff828282,
                       text: '',
                       endPointX: MediaQuery.of(context).size.width - 100,
-                      centreX: 50,
-                      centreY: 50,
-                      controlPointX: 50,
-                      controlPointY: 50,
+                    
                       endPointY: 100,
                       startPointX: MediaQuery.of(context).size.width - 100,
                       startPointY: 200,
@@ -137,10 +140,11 @@ class _NotePageButtonsState extends State<NotePageButtons> {
                   NotesService.addNoteContent(
                       widget.id,
                       NoteContent(
+                        connectedComponents: [],
                           fontSize: 12,
                           noteContentType: 'TEXT',
-                          positionX: MediaQuery.of(context).size.width / 2.8,
-                          positionY: MediaQuery.of(context).size.height / 2.5,
+                          positionX: 4.190923164060223e-10,
+                          positionY: 1.301079244342418e-10,
                           height: 100,
                           width: 100,
                           color: 0xff828282,
@@ -166,6 +170,7 @@ class _NotePageButtonsState extends State<NotePageButtons> {
                   NotesService.addNoteContent(
                       widget.id,
                       NoteContent(
+                        connectedComponents: [],
                         noteContentType: 'DIAMOND',
                         positionX: MediaQuery.of(context).size.width / 2.3,
                         positionY: MediaQuery.of(context).size.height / 2.5,
@@ -202,6 +207,7 @@ class _NotePageButtonsState extends State<NotePageButtons> {
                     NotesService.addNoteContent(
                         widget.id,
                         NoteContent(
+                          connectedComponents: [],
                           noteContentType: 'CIRCLE',
                           positionX: MediaQuery.of(context).size.width / 2.3,
                           positionY: MediaQuery.of(context).size.height / 2.5,
@@ -254,6 +260,7 @@ class _NotePageButtonsState extends State<NotePageButtons> {
                   NotesService.addNoteContent(
                       widget.id,
                       NoteContent(
+                        connectedComponents: [],
                         noteContentType: 'CONTAINER',
                         positionX: MediaQuery.of(context).size.width / 2.3,
                         positionY: MediaQuery.of(context).size.height / 2.5,
@@ -287,6 +294,7 @@ class _NotePageButtonsState extends State<NotePageButtons> {
                   NotesService.addNoteContent(
                       widget.id,
                       NoteContent(
+                        connectedComponents: [],
                         noteContentType: 'SQUARE',
                         positionX: MediaQuery.of(context).size.width / 2.3,
                         positionY: MediaQuery.of(context).size.height / 2.5,
