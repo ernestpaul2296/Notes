@@ -35,7 +35,7 @@ class TextWidget extends StatelessWidget {
             Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(noteId);
             note.noteContent.removeWhere(
                 (element) => element.noteContentId == e.noteContentId);
-            e.text = controller.text;
+            e.data = controller.text;
             note.noteContent.add(e);
             NotesService.saveNoteLocally(note);
             FocusScope.of(context).requestFocus(FocusNode());

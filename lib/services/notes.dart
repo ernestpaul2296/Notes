@@ -3,9 +3,11 @@ import 'package:surfwar_flutter/models/note_content.dart';
 import 'package:surfwar_flutter/services/global.dart';
 
 class NotesService {
+
   static saveNoteLocally(Note note) {
-    print('SAVED NOTE');
+
     Global.boxes[BOX_NAME.NOTES_BOX]!.put(note.id, note);
+
   }
 
   static addNoteContent(String id, NoteContent content) {
@@ -15,7 +17,7 @@ class NotesService {
   }
 
   deleteNoteLocally(String id) {
-    print('delete function');
+
     Global.boxes[BOX_NAME.NOTES_BOX]!.delete((id));
   }
 

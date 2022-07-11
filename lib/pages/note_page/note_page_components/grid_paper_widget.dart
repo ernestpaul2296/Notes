@@ -1,39 +1,43 @@
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:surfwar_flutter/styles/styles.dart';
+
 
 import '../../../models/note_content.dart';
 import '../../../services/notes.dart';
 import '../../../services/utils.dart';
-import '../note_page.dart';
+
 
 class GridPaperWidget extends StatelessWidget {
-  GridPaperWidget({
+  const GridPaperWidget({
     Key? key,
-    required this.widget,
+    required this.noteId,
   }) : super(key: key);
 
-  final NotePage widget;
+  final String noteId;
 
   @override
   Widget build(BuildContext context) {
+   
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: GestureDetector(
+        
         onDoubleTap: () {
+          TapUpDetails details  =TapUpDetails(kind: PointerDeviceKind.unknown);
+          print(details.globalPosition.dx);
+          print(details.globalPosition.dy);
         
         },
         onTapUp: ((details) {
+
           String contentId = Utils.getSecureString(20);
           print('On double tap down');
-          print(TapDownDetails().globalPosition.dx);
-          print(TapDownDetails().localPosition.dy);
-
+     
           NotesService.addNoteContent(
-              widget.id,
+              noteId,
               NoteContent(
                   connectedComponents: [],
                   fontSize: 12,
@@ -45,10 +49,10 @@ class GridPaperWidget extends StatelessWidget {
                   color: 0xff828282,
                   noteContentId: contentId,
                   borderColor: 0xff828282,
-                  text: ''));
+                  data: ''));
         }),
         child: GridPaper(
-          color: Colors.transparent,
+          color: Colors.grey,
           child: Container(
             color: Colors.transparent,
             height: MediaQuery.of(context).size.height,

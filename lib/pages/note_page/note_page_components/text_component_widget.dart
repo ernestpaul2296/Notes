@@ -34,7 +34,7 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
 
     if (noteContentsNearby.length > 0) {
       print('here!!!');
-      print(noteContentsNearby[0].text);
+      print(noteContentsNearby[0].data);
       return noteContentsNearby[0];
     } else
       return null;
@@ -46,7 +46,7 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
       left: widget.e.positionX - 60,
       child: Draggable(
         onDragUpdate: (DragUpdateDetails details) {
-          widget.e.text = textController.text;
+          widget.e.data = textController.text;
 
           setState(() {
             widget.e.positionX = details.localPosition.dx;
@@ -61,7 +61,7 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
           Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(widget.id);
           note.noteContent.removeWhere(
               (element) => element.noteContentId == widget.e.noteContentId);
-          widget.e.text = textController.text;
+          widget.e.data = textController.text;
           note.noteContent.add(widget.e);
           NotesService.saveNoteLocally(note);
         },
@@ -86,7 +86,7 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
           Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(widget.id);
           note.noteContent.removeWhere(
               (element) => element.noteContentId == widget.e.noteContentId);
-          widget.e.text = textController.text;
+          widget.e.data = textController.text;
           widget.e.positionX = widget.e.positionX;
           widget.e.positionY = widget.e.positionY;
 
@@ -126,13 +126,13 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
               child: TextField(
                 maxLines: null,
                 onChanged: (event) {
-                  widget.e.text = textController.text;
+                  widget.e.data = textController.text;
                 },
                 onEditingComplete: () {
                   Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(widget.id);
                   note.noteContent.removeWhere((element) =>
                       element.noteContentId == widget.e.noteContentId);
-                  widget.e.text = textController.text;
+                  widget.e.data = textController.text;
 
                   note.noteContent.add(widget.e);
                   FocusNode().unfocus();
@@ -143,7 +143,7 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
                   Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(widget.id);
                   note.noteContent.removeWhere((element) =>
                       element.noteContentId == widget.e.noteContentId);
-                  widget.e.text = textController.text;
+                  widget.e.data = textController.text;
                   note.noteContent.add(widget.e);
                   FocusNode().unfocus();
                   FocusScope.of(context).requestFocus(FocusNode());

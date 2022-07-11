@@ -3,11 +3,13 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 
 import 'package:surfwar_flutter/models/models.dart';
 import 'package:surfwar_flutter/pages/note_page/note_page_components/line_component_widget.dart';
+import 'package:surfwar_flutter/pages/note_page/note_page_components/note_page_viewmodel.dart';
 
-import 'package:surfwar_flutter/pages/note_page/note_page_components/line_widget.dart';
+
 
 import 'package:surfwar_flutter/services/global.dart';
 
@@ -15,9 +17,9 @@ import 'package:surfwar_flutter/services/notes.dart';
 
 import 'package:surfwar_flutter/styles/styles.dart';
 
-import '../../services/utils.dart';
+
 import '../home_page/home_page.dart';
-import '../home_page/home_page_components/text_component_widget.dart';
+import 'note_page_components/text_component_widget.dart';
 
 import 'note_page_components/note_page_components.dart';
 
@@ -30,87 +32,115 @@ class NotePage extends StatefulWidget {
 }
 
 class _NotePageState extends State<NotePage> {
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
+
+
   TransformationController _transformationController =
       TransformationController();
 
   Widget build(BuildContext context) {
+
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
-        },
-        backgroundColor: AppColors.grey,
-        child: Icon(Icons.home),
-      ),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        child: ValueListenableBuilder(
-          valueListenable: Global.boxes[BOX_NAME.NOTES_BOX]!.listenable(),
-          builder: (context, Box box, wid) {
-            print('VALUE LISTENED');
-            List<Widget> widgetsToDisplay = [];
 
-            // widgetsToDisplay.add(GridPaperWidget(widget: widget));
+      floatingActionButton: FloatingButtonWidget(),
 
-            Note note = box.get(widget.id);
+      body: ChangeNotifierProvider(
 
-            if (note.transformationControllerValue != null) {
-              _transformationController.value =
-                  Matrix4.fromList(note.transformationControllerValue!);
-              note.transformationControllerValue!;
-            } else {}
-            List<NoteContent> noteContents = note.noteContent;
-            note.noteContent.forEach((e) {
-              e.connectedComponents.forEach((element) {
-                NoteContent connectedToComponent = noteContents
-                    .firstWhere((el) => el.noteContentId == element);
+      create: (_) => NotePageViewModel(noteId: widget.id),
 
-                widgetsToDisplay.add(LineComponentWidget(
-                  componentA: Offset(e.positionX, e.positionY),
-                  componentB: Offset(connectedToComponent.positionX,
-                      connectedToComponent.positionY),
-                ));
-              });
-            });
-            widgetsToDisplay.add(GridPaperWidget(widget: widget));
-            note.noteContent.forEach((e) {
-              switch (e.noteContentType) {
-                case 'TEXT':
-                  TextEditingController textController =
-                      TextEditingController(text: e.text);
-                  widgetsToDisplay.add(TextComponentWidget(
-                    e: e,
-                    id: widget.id,
-                  ));
-                  return;
-              }
-            });
+      child: GestureDetector(
+      
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+            },
 
-            return InteractiveViewer(
-              transformationController: _transformationController,
-              onInteractionUpdate: (details) {
-                print(_transformationController.value.storage);
-                Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(widget.id);
+            child: ValueListenableBuilder(
+      
+              valueListenable: Global.boxes[BOX_NAME.NOTES_BOX]!.listenable(),
+      
+              builder: (context, Box box, wid) {
+      
+                Note note = box.get(widget.id);
+      
+                List<Widget> widgetsToDisplay = NotePageViewModel(noteId: widget.id).returnWidgetlist();
+                    
+                if (note.transformationControllerValue != null) {
+                  _transformationController.value =
+                      Matrix4.fromList(note.transformationControllerValue!);
+                  note.transformationControllerValue!;
+                } 
 
-                note.transformationControllerValue =
-                    _transformationController.value.storage;
+              return 
 
-                NotesService.saveNoteLocally(note);
+              InteractiveViewer(
+                      
+                      transformationController: _transformationController,
+
+                      onInteractionUpdate: (details) {
+                
+                        Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(widget.id);
+                
+                        note.transformationControllerValue =
+                            _transformationController.value.storage;
+                
+                        NotesService.saveNoteLocally(note);
+                      },
+                      minScale: 0.1,
+                      maxScale: 4,
+                      panEnabled: true,
+                      scaleEnabled: true,
+                      child: Stack(
+                        children: widgetsToDisplay,
+                      ),
+                    );
               },
-              minScale: 0.1,
-              maxScale: 4,
-              panEnabled: true,
-              scaleEnabled: true,
-              child: Stack(
-                children: widgetsToDisplay,
-              ),
-            );
-          },
-        ),
+            ),
+          ),
+        
       ),
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // note.noteContent.forEach((e) {
+            //   e.connectedComponents.forEach((element) {
+            //     NoteContent connectedToComponent = noteContents
+            //         .firstWhere((el) => el.noteContentId == element);
+
+            //     widgetsToDisplay.add(LineComponentWidget(
+            //       componentA: Offset(e.positionX, e.positionY),
+            //       componentB: Offset(connectedToComponent.positionX,
+            //           connectedToComponent.positionY),
+            //     ));
+            //   });
+            // });
+            // widgetsToDisplay.add(GridPaperWidget(noteId: noteId));
+            // note.noteContent.forEach((e) {
+            //   switch (e.noteContentType) {
+            //     case 'TEXT':
+            //       TextEditingController textController =
+            //           TextEditingController(text: e.data);
+            //       widgetsToDisplay.add(TextComponentWidget(
+            //         e: e,
+            //         id: widget.id,
+            //       ));
+            //       return;
+            //   }
+            // });
