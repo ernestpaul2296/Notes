@@ -27,18 +27,9 @@ class NoteContent {
   @HiveField(8)
   int borderColor;
   @HiveField(9)
-  String? text;
+  String? data;
   @HiveField(10)
-  double? startPointX;
-  @HiveField(11)
-  double? endPointX;
-  @HiveField(12)
-  double? startPointY;
-  @HiveField(13)
-  double? endPointY;
-  @HiveField(14)
   List<String> connectedComponents;
-
   NoteContent({
     required this.connectedComponents,
     required this.noteContentType,
@@ -50,10 +41,6 @@ class NoteContent {
     this.fontSize,
     required this.noteContentId,
     required this.borderColor,
-    this.text,
-    this.startPointX,
-    this.endPointX,
-    this.startPointY,
-    this.endPointY,
+    this.data,
   });
 }

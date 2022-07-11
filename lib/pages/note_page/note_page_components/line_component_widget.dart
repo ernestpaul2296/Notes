@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:surfwar_flutter/common_widgets/text_field_widget.dart';
-import 'package:surfwar_flutter/models/models.dart';
-import 'package:surfwar_flutter/models/note.dart';
-import 'package:surfwar_flutter/services/global.dart';
-import 'package:surfwar_flutter/styles/styles.dart';
+
 
 class LineComponentWidget extends StatelessWidget {
   const LineComponentWidget({
