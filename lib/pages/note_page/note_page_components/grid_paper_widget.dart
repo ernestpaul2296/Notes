@@ -1,7 +1,4 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:surfwar_flutter/styles/styles.dart';
 
 import '../../../models/note_content.dart';
 import '../../../services/notes.dart';
@@ -23,9 +20,7 @@ class GridPaperWidget extends StatelessWidget {
         FocusScope.of(context).requestFocus(FocusNode());
       },
       child: GestureDetector(
-        onDoubleTap: () {
-        
-        },
+        onDoubleTap: () {},
         onTapUp: ((details) {
           String contentId = Utils.getSecureString(20);
           print('On double tap down');

@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:surfwar_flutter/pages/pages.dart';
-import 'package:surfwar_flutter/services/global.dart';
-import 'dart:async';
-
 import 'package:surfwar_flutter/services/hive.dart';
-import 'package:surfwar_flutter/services/notes.dart';
-
-import 'models/note.dart';
-import 'models/note_content.dart';
-import 'pages/note_page/note_page.dart';
-import 'styles/styles.dart';
 
 void main() async {
   await HiveInstance.initialiseHive();
