@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:surfwar_flutter/models/style_model.dart';
 
 import '../../../models/note_content.dart';
 import '../../../services/notes.dart';
@@ -42,7 +43,13 @@ class GridPaperWidget extends StatelessWidget {
                   color: 0xff828282,
                   noteContentId: contentId,
                   borderColor: 0xff828282,
-                  data: ''));
+                  data: '',
+                  style: TextStyleProp(
+                    colorCode: 0xff000000,
+                    textItalics: false,
+                    textThinkness: false,
+                    textUnderline: false,
+                  )));
         }),
         child: GridPaper(
           color: Colors.grey,

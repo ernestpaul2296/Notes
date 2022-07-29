@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:surfwar_flutter/pages/note_page/view_model/note_page_viewmodel.dart';
 import 'package:surfwar_flutter/services/global.dart';
 
 import '../../../models/note.dart';
@@ -123,57 +124,104 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
               padding: const EdgeInsets.symmetric(
                 vertical: 0.0,
               ),
-              child: TextField(
-                maxLines: null,
-                onChanged: (event) {
-                  widget.e.data = textController.text;
-                },
-                onEditingComplete: () {
-                  Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(widget.id);
-                  note.noteContent.removeWhere((element) =>
-                      element.noteContentId == widget.e.noteContentId);
-                  widget.e.data = textController.text;
+              child: ValueListenableBuilder(
+                  valueListenable: NotePageViewModel.of(context).isItalicEnable,
+                  builder: (context, italics, _) {
+                    return ValueListenableBuilder(
+                        valueListenable:
+                            NotePageViewModel.of(context).isUnderlined,
+                        builder: (context, underlined, _) {
+                          return ValueListenableBuilder(
+                              valueListenable:
+                                  NotePageViewModel.of(context).isBoldEnable,
+                              builder: (context, enabled, _) {
+                                return TextField(
+                                  onTap: () {
+                                    NotePageViewModel.of(context)
+                                        .setSelectedComponent(
+                                            widget.e.noteContentId);
+                                  },
+                                  maxLines: null,
+                                  onChanged: (event) {
+                                    widget.e.data = textController.text;
+                                  },
+                                  onEditingComplete: () {
+                                    Note note = Global
+                                        .boxes[BOX_NAME.NOTES_BOX]!
+                                        .get(widget.id);
+                                    note.noteContent.removeWhere((element) =>
+                                        element.noteContentId ==
+                                        widget.e.noteContentId);
+                                    widget.e.data = textController.text;
 
-                  note.noteContent.add(widget.e);
-                  FocusNode().unfocus();
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  NotesService.saveNoteLocally(note);
-                },
-                onSubmitted: (event) {
-                  Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(widget.id);
-                  note.noteContent.removeWhere((element) =>
-                      element.noteContentId == widget.e.noteContentId);
-                  widget.e.data = textController.text;
-                  note.noteContent.add(widget.e);
-                  FocusNode().unfocus();
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  NotesService.saveNoteLocally(note);
-                },
-                textInputAction: TextInputAction.done,
-                autofocus: false,
-                //keyboardType: TextInputType.number,
-                controller: textController,
-                cursorColor: Colors.black,
-                scrollPadding: EdgeInsets.symmetric(
-                  horizontal: 0,
-                ),
-                style: TextStyle(
-                    color: Color(widget.e.color), fontSize: widget.e.fontSize),
-                decoration: InputDecoration(
-                  hintText: 'Add Text',
-                  // suffixIcon: Icon(Icons.edit),
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 24, vertical: 0),
-                  labelStyle: TextStyle(
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: Colors.transparent,
-                ),
-              ),
+                                    note.noteContent.add(widget.e);
+                                    FocusNode().unfocus();
+                                    FocusScope.of(context)
+                                        .requestFocus(FocusNode());
+                                    NotesService.saveNoteLocally(note);
+                                  },
+                                  onSubmitted: (event) {
+                                    Note note = Global
+                                        .boxes[BOX_NAME.NOTES_BOX]!
+                                        .get(widget.id);
+                                    note.noteContent.removeWhere((element) =>
+                                        element.noteContentId ==
+                                        widget.e.noteContentId);
+                                    widget.e.data = textController.text;
+                                    note.noteContent.add(widget.e);
+                                    FocusNode().unfocus();
+                                    FocusScope.of(context)
+                                        .requestFocus(FocusNode());
+                                    NotesService.saveNoteLocally(note);
+                                  },
+                                  textInputAction: TextInputAction.done,
+                                  autofocus: false,
+                                  //keyboardType: TextInputType.number,
+                                  controller: textController,
+                                  cursorColor: Colors.black,
+                                  scrollPadding: EdgeInsets.symmetric(
+                                    horizontal: 0,
+                                  ),
+                                  style: TextStyle(
+                                    color: Color(widget.e.style.colorCode),
+                                    fontStyle:
+                                        widget.e.style.textItalics == true
+                                            ? FontStyle.italic
+                                            : FontStyle.normal,
+                                    fontWeight:
+                                        widget.e.style.textThinkness == true
+                                            ? FontWeight.w900
+                                            : FontWeight.normal,
+                                    decoration:
+                                        widget.e.style.textUnderline == true
+                                            ? TextDecoration.underline
+                                            : TextDecoration.none,
+                                  ),
+
+                                  decoration: const InputDecoration(
+                                    hintText: 'Add Text',
+                                    hintStyle: TextStyle(
+                                        fontStyle: FontStyle.normal,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.normal,
+                                        decoration: TextDecoration.none),
+                                    // suffixIcon: Icon(Icons.edit),
+                                    contentPadding: EdgeInsets.symmetric(
+                                        horizontal: 24, vertical: 0),
+                                    labelStyle: TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                    ),
+
+                                    filled: true,
+                                    fillColor: Colors.transparent,
+                                  ),
+                                );
+                              });
+                        });
+                  }),
             ),
           ),
           GestureDetector(

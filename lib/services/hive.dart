@@ -1,8 +1,8 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:surfwar_flutter/models/note.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:surfwar_flutter/models/note_content.dart';
+import 'package:surfwar_flutter/models/style_model.dart';
 
 class HiveInstance {
   static late Box _notesBox;
@@ -10,6 +10,7 @@ class HiveInstance {
     await Hive.initFlutter();
     Hive.registerAdapter(NoteAdapter());
     Hive.registerAdapter(NoteContentAdapter());
+    Hive.registerAdapter(TextStylePropAdapter());
     _notesBox = await Hive.openBox('notes_box');
   }
 

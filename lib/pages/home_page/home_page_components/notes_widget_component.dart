@@ -27,7 +27,7 @@ class NotesWidgetsComponent extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                NotePage(id: notes[index].id)));
+                                NotePage(noteId: notes[index].id)));
                   },
                   child: Container(
                     padding: EdgeInsets.all(8),

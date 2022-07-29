@@ -28,13 +28,14 @@ class NoteContentAdapter extends TypeAdapter<NoteContent> {
       noteContentId: fields[7] as String,
       borderColor: fields[8] as int,
       data: fields[9] as String?,
+      style: fields[11] as TextStyleProp,
     );
   }
 
   @override
   void write(BinaryWriter writer, NoteContent obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.noteContentType)
       ..writeByte(1)
@@ -56,7 +57,9 @@ class NoteContentAdapter extends TypeAdapter<NoteContent> {
       ..writeByte(9)
       ..write(obj.data)
       ..writeByte(10)
-      ..write(obj.connectedComponents);
+      ..write(obj.connectedComponents)
+      ..writeByte(11)
+      ..write(obj.style);
   }
 
   @override

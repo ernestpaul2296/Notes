@@ -1,8 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import 'style_model.dart';
 
 part 'note_content.g.dart';
 
@@ -30,17 +30,19 @@ class NoteContent {
   String? data;
   @HiveField(10)
   List<String> connectedComponents;
-  NoteContent({
-    required this.connectedComponents,
-    required this.noteContentType,
-    required this.positionX,
-    required this.positionY,
-    required this.height,
-    required this.width,
-    required this.color,
-    this.fontSize,
-    required this.noteContentId,
-    required this.borderColor,
-    this.data,
-  });
+  @HiveField(11)
+  TextStyleProp style;
+  NoteContent(
+      {required this.connectedComponents,
+      required this.noteContentType,
+      required this.positionX,
+      required this.positionY,
+      required this.height,
+      required this.width,
+      required this.color,
+      this.fontSize,
+      required this.noteContentId,
+      required this.borderColor,
+      this.data,
+      required this.style});
 }
