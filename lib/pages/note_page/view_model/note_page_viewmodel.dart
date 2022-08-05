@@ -47,13 +47,62 @@ class NotePageViewModel extends ChangeNotifier {
     NotesService.saveNoteLocally(note);
   }
 
-  setItalicsEnable(bool isEnabled) {
-    print('Italics enabling');
-    isItalicEnable.value = isEnabled;
+  setItalicsEnable(String noteId, String noteContentId) {
+    Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(noteId);
+    List<NoteContent> noteContents = note.noteContent;
+    NoteContent content = noteContents
+        .firstWhere((element) => element.noteContentId == noteContentId);
+    content.style.textItalics = !content.style.textItalics;
+
+    noteContents
+        .removeWhere((element) => element.noteContentId == noteContentId);
+    noteContents.add(content);
+
+    note.noteContent = noteContents;
+    NotesService.saveNoteLocally(note);
   }
 
-  setUnderline(bool isEnabled) {
-    isUnderlined.value = isEnabled;
+  setUnderline(String noteId, String noteContentId) {
+     Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(noteId);
+    List<NoteContent> noteContents = note.noteContent;
+    NoteContent content = noteContents
+        .firstWhere((element) => element.noteContentId == noteContentId);
+    content.style.textUnderline = !content.style.textUnderline;
+
+    noteContents
+        .removeWhere((element) => element.noteContentId == noteContentId);
+    noteContents.add(content);
+
+    note.noteContent = noteContents;
+    NotesService.saveNoteLocally(note);
+  }
+
+  bool checkBoldEnabled(String selectedComponent){
+     Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(noteId);
+    List<NoteContent> noteContents = note.noteContent;
+    NoteContent content = noteContents
+        .firstWhere((element) => element.noteContentId == selectedComponent);
+        return content.style.textThinkness;
+
+  }
+
+   bool checkItalicsEnabled(String selectedComponent){
+     Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(noteId);
+    List<NoteContent> noteContents = note.noteContent;
+    NoteContent content = noteContents
+        .firstWhere((element) => element.noteContentId == selectedComponent);
+        return content.style.textItalics;
+
+  }
+
+
+   bool checkUnderLineEnabled(String selectedComponent){
+     Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(noteId);
+    List<NoteContent> noteContents = note.noteContent;
+    NoteContent content = noteContents
+        .firstWhere((element) => element.noteContentId == selectedComponent);
+        return content.style.textUnderline;
+
   }
 
   returnWidgetlist() {

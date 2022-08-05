@@ -47,6 +47,7 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
       left: widget.e.positionX - 60,
       child: Draggable(
         onDragUpdate: (DragUpdateDetails details) {
+          print('On drag update');
           widget.e.data = textController.text;
 
           setState(() {
@@ -58,35 +59,35 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
           initialPositionX = widget.e.positionX;
           initialPositionY = widget.e.positionY;
         },
-        onDragCompleted: () {
-          Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(widget.id);
-          note.noteContent.removeWhere(
-              (element) => element.noteContentId == widget.e.noteContentId);
-          widget.e.data = textController.text;
-          note.noteContent.add(widget.e);
-          NotesService.saveNoteLocally(note);
-        },
+        // onDragCompleted: () {
+        //   print('Print from drag complete');
+        //   Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(widget.id);
+        //   note.noteContent.removeWhere(
+        //       (element) => element.noteContentId == widget.e.noteContentId);
+        //   widget.e.data = textController.text;
+        //   note.noteContent.add(widget.e);
+        //   NotesService.saveNoteLocally(note);
+        // },
         onDragEnd: (details) {
-          NoteContent? contentNearby = checkIfComponentsExistsNearby(
-              widget.e.positionX, widget.e.positionY);
+            print('Print from drag End');
+          // NoteContent? contentNearby = checkIfComponentsExistsNearby(
+          //     widget.e.positionX, widget.e.positionY);
 
-          if (contentNearby != null) {
-            NotesService.connectComponents(
-                widget.id, contentNearby.noteContentId, widget.e.noteContentId);
-            setState(() {
-              widget.e.positionX = initialPositionX!;
-              widget.e.positionY = initialPositionY!;
-            });
-          }
-          //INITIAL POSITION SETTING CODE
-          // setState(() {
-          //   widget.e.positionX = initialPositionX!;
-          //   widget.e.positionY = initialPositionY!;
-          // });
-          //
+          // if (contentNearby != null) {
+          //   NotesService.connectComponents(
+          //       widget.id, contentNearby.noteContentId, widget.e.noteContentId);
+          //   setState(() {
+          //     widget.e.positionX = initialPositionX!;
+          //     widget.e.positionY = initialPositionY!;
+          //   });
+          // }
+         
           Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(widget.id);
+
           note.noteContent.removeWhere(
               (element) => element.noteContentId == widget.e.noteContentId);
+
+
           widget.e.data = textController.text;
           widget.e.positionX = widget.e.positionX;
           widget.e.positionY = widget.e.positionY;
@@ -140,6 +141,8 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
                                     NotePageViewModel.of(context)
                                         .setSelectedComponent(
                                             widget.e.noteContentId);
+
+
                                   },
                                   maxLines: null,
                                   onChanged: (event) {
@@ -158,21 +161,23 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
                                     FocusNode().unfocus();
                                     FocusScope.of(context)
                                         .requestFocus(FocusNode());
+                                        print('Saving note on EDIT-COMEPLETE');
                                     NotesService.saveNoteLocally(note);
                                   },
                                   onSubmitted: (event) {
-                                    Note note = Global
-                                        .boxes[BOX_NAME.NOTES_BOX]!
-                                        .get(widget.id);
-                                    note.noteContent.removeWhere((element) =>
-                                        element.noteContentId ==
-                                        widget.e.noteContentId);
-                                    widget.e.data = textController.text;
-                                    note.noteContent.add(widget.e);
-                                    FocusNode().unfocus();
-                                    FocusScope.of(context)
-                                        .requestFocus(FocusNode());
-                                    NotesService.saveNoteLocally(note);
+                                    // Note note = Global
+                                    //     .boxes[BOX_NAME.NOTES_BOX]!
+                                    //     .get(widget.id);
+                                    // note.noteContent.removeWhere((element) =>
+                                    //     element.noteContentId ==
+                                    //     widget.e.noteContentId);
+                                    // widget.e.data = textController.text;
+                                    // note.noteContent.add(widget.e);
+                                    // FocusNode().unfocus();
+                                    // FocusScope.of(context)
+                                    //     .requestFocus(FocusNode());
+                                    //      print('Saving note on SUBMITTED');
+                                    // NotesService.saveNoteLocally(note);
                                   },
                                   textInputAction: TextInputAction.done,
                                   autofocus: false,
