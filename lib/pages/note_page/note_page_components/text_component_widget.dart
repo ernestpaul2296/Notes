@@ -69,7 +69,7 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
         //   NotesService.saveNoteLocally(note);
         // },
         onDragEnd: (details) {
-            print('Print from drag End');
+          print('Print from drag End');
           // NoteContent? contentNearby = checkIfComponentsExistsNearby(
           //     widget.e.positionX, widget.e.positionY);
 
@@ -81,12 +81,11 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
           //     widget.e.positionY = initialPositionY!;
           //   });
           // }
-         
+
           Note note = Global.boxes[BOX_NAME.NOTES_BOX]!.get(widget.id);
 
           note.noteContent.removeWhere(
               (element) => element.noteContentId == widget.e.noteContentId);
-
 
           widget.e.data = textController.text;
           widget.e.positionX = widget.e.positionX;
@@ -103,130 +102,141 @@ class _TextComponentWidgetState extends State<TextComponentWidget> {
           height: 30,
         ),
         child: Stack(alignment: Alignment.topRight, children: [
-          Container(
-            margin: EdgeInsets.only(left: 6),
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  spreadRadius: 2,
-                  blurRadius: 10,
-                  color: AppColors.grey.withOpacity(0.3),
-                  offset: Offset.zero,
-                )
-              ],
-              border: Border.all(color: Colors.transparent, width: 1),
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(16),
+          GestureDetector(
+            onLongPress: () {
+              showDialog(
+                  context: context,
+                  builder: ((context) => Container(
+                        width: 100,
+                        height: 100,
+                        color: Colors.amber,
+                      )));
+            },
+            child: Container(
+              margin: EdgeInsets.only(left: 6),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    spreadRadius: 2,
+                    blurRadius: 10,
+                    color: AppColors.grey.withOpacity(0.3),
+                    offset: Offset.zero,
+                  )
+                ],
+                border: Border.all(color: Colors.transparent, width: 1),
+                color: Colors.white,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(16),
+                ),
               ),
-            ),
-            width: MediaQuery.of(context).size.width / 3,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 0.0,
+              width: MediaQuery.of(context).size.width / 3,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 0.0,
+                ),
+                child: ValueListenableBuilder(
+                    valueListenable:
+                        NotePageViewModel.of(context).isItalicEnable,
+                    builder: (context, italics, _) {
+                      return ValueListenableBuilder(
+                          valueListenable:
+                              NotePageViewModel.of(context).isUnderlined,
+                          builder: (context, underlined, _) {
+                            return ValueListenableBuilder(
+                                valueListenable:
+                                    NotePageViewModel.of(context).isBoldEnable,
+                                builder: (context, enabled, _) {
+                                  return TextField(
+                                    onTap: () {
+                                      NotePageViewModel.of(context)
+                                          .setSelectedComponent(
+                                              widget.e.noteContentId);
+                                    },
+
+                                    maxLines: null,
+                                    onChanged: (event) {
+                                      widget.e.data = textController.text;
+                                    },
+                                    onEditingComplete: () {
+                                      Note note = Global
+                                          .boxes[BOX_NAME.NOTES_BOX]!
+                                          .get(widget.id);
+                                      note.noteContent.removeWhere((element) =>
+                                          element.noteContentId ==
+                                          widget.e.noteContentId);
+                                      widget.e.data = textController.text;
+
+                                      note.noteContent.add(widget.e);
+                                      FocusNode().unfocus();
+                                      FocusScope.of(context)
+                                          .requestFocus(FocusNode());
+                                      print('Saving note on EDIT-COMEPLETE');
+                                      NotesService.saveNoteLocally(note);
+                                    },
+                                    onSubmitted: (event) {
+                                      Note note = Global
+                                          .boxes[BOX_NAME.NOTES_BOX]!
+                                          .get(widget.id);
+                                      note.noteContent.removeWhere((element) =>
+                                          element.noteContentId ==
+                                          widget.e.noteContentId);
+                                      widget.e.data = textController.text;
+                                      note.noteContent.add(widget.e);
+                                      FocusNode().unfocus();
+                                      FocusScope.of(context)
+                                          .requestFocus(FocusNode());
+                                      print('Saving note on SUBMITTED');
+                                      NotesService.saveNoteLocally(note);
+                                    },
+                                    textInputAction: TextInputAction.done,
+                                    autofocus: false,
+                                    //keyboardType: TextInputType.number,
+                                    controller: textController,
+                                    cursorColor: Colors.black,
+                                    scrollPadding: EdgeInsets.symmetric(
+                                      horizontal: 0,
+                                    ),
+                                    style: TextStyle(
+                                        color: Color(widget.e.style.colorCode),
+                                        fontStyle:
+                                            widget.e.style.textItalics == true
+                                                ? FontStyle.italic
+                                                : FontStyle.normal,
+                                        fontWeight:
+                                            widget.e.style.textThinkness == true
+                                                ? FontWeight.w900
+                                                : FontWeight.normal,
+                                        decoration:
+                                            widget.e.style.textUnderline == true
+                                                ? TextDecoration.underline
+                                                : TextDecoration.none,
+                                        fontSize: widget.e.fontSize),
+
+                                    decoration: const InputDecoration(
+                                      hintText: 'Add Text',
+                                      hintStyle: TextStyle(
+                                          fontStyle: FontStyle.normal,
+                                          color: Colors.grey,
+                                          fontWeight: FontWeight.normal,
+                                          decoration: TextDecoration.none),
+                                      // suffixIcon: Icon(Icons.edit),
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 24, vertical: 0),
+                                      labelStyle: TextStyle(
+                                        color: Colors.black,
+                                      ),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                      ),
+
+                                      filled: true,
+                                      fillColor: Colors.transparent,
+                                    ),
+                                  );
+                                });
+                          });
+                    }),
               ),
-              child: ValueListenableBuilder(
-                  valueListenable: NotePageViewModel.of(context).isItalicEnable,
-                  builder: (context, italics, _) {
-                    return ValueListenableBuilder(
-                        valueListenable:
-                            NotePageViewModel.of(context).isUnderlined,
-                        builder: (context, underlined, _) {
-                          return ValueListenableBuilder(
-                              valueListenable:
-                                  NotePageViewModel.of(context).isBoldEnable,
-                              builder: (context, enabled, _) {
-                                return TextField(
-                                  onTap: () {
-                                    NotePageViewModel.of(context)
-                                        .setSelectedComponent(
-                                            widget.e.noteContentId);
-
-
-                                  },
-                                  maxLines: null,
-                                  onChanged: (event) {
-                                    widget.e.data = textController.text;
-                                  },
-                                  onEditingComplete: () {
-                                    Note note = Global
-                                        .boxes[BOX_NAME.NOTES_BOX]!
-                                        .get(widget.id);
-                                    note.noteContent.removeWhere((element) =>
-                                        element.noteContentId ==
-                                        widget.e.noteContentId);
-                                    widget.e.data = textController.text;
-
-                                    note.noteContent.add(widget.e);
-                                    FocusNode().unfocus();
-                                    FocusScope.of(context)
-                                        .requestFocus(FocusNode());
-                                        print('Saving note on EDIT-COMEPLETE');
-                                    NotesService.saveNoteLocally(note);
-                                  },
-                                  onSubmitted: (event) {
-                                    // Note note = Global
-                                    //     .boxes[BOX_NAME.NOTES_BOX]!
-                                    //     .get(widget.id);
-                                    // note.noteContent.removeWhere((element) =>
-                                    //     element.noteContentId ==
-                                    //     widget.e.noteContentId);
-                                    // widget.e.data = textController.text;
-                                    // note.noteContent.add(widget.e);
-                                    // FocusNode().unfocus();
-                                    // FocusScope.of(context)
-                                    //     .requestFocus(FocusNode());
-                                    //      print('Saving note on SUBMITTED');
-                                    // NotesService.saveNoteLocally(note);
-                                  },
-                                  textInputAction: TextInputAction.done,
-                                  autofocus: false,
-                                  //keyboardType: TextInputType.number,
-                                  controller: textController,
-                                  cursorColor: Colors.black,
-                                  scrollPadding: EdgeInsets.symmetric(
-                                    horizontal: 0,
-                                  ),
-                                  style: TextStyle(
-                                    color: Color(widget.e.style.colorCode),
-                                    fontStyle:
-                                        widget.e.style.textItalics == true
-                                            ? FontStyle.italic
-                                            : FontStyle.normal,
-                                    fontWeight:
-                                        widget.e.style.textThinkness == true
-                                            ? FontWeight.w900
-                                            : FontWeight.normal,
-                                    decoration:
-                                        widget.e.style.textUnderline == true
-                                            ? TextDecoration.underline
-                                            : TextDecoration.none,
-                                  ),
-
-                                  decoration: const InputDecoration(
-                                    hintText: 'Add Text',
-                                    hintStyle: TextStyle(
-                                        fontStyle: FontStyle.normal,
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.normal,
-                                        decoration: TextDecoration.none),
-                                    // suffixIcon: Icon(Icons.edit),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 24, vertical: 0),
-                                    labelStyle: TextStyle(
-                                      color: Colors.black,
-                                    ),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                    ),
-
-                                    filled: true,
-                                    fillColor: Colors.transparent,
-                                  ),
-                                );
-                              });
-                        });
-                  }),
             ),
           ),
           GestureDetector(

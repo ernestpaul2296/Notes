@@ -1,9 +1,6 @@
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 import '../view_model/note_page_viewmodel.dart';
 
@@ -18,49 +15,48 @@ class EditTextStyleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
-        valueListenable:
-            NotePageViewModel.of(context).isKeyBoardVisible,
+        valueListenable: NotePageViewModel.of(context).isKeyBoardVisible,
         builder: (context, isVisible, _) {
           if (isVisible) {
-            return  ValueListenableBuilder<String>(
-             valueListenable:NotePageViewModel.of(context).selectedComponent,
-              builder: (context, selectedComponent, _) {
-                return Positioned(
-                    bottom: 0,
-                    child: Container(
-                      height: 50,
-                      width: MediaQuery.of(context).size.width,
-                      color: Color(0xffD2D3D8),
-                      child: Row(
-                          mainAxisAlignment:
-                              MainAxisAlignment.spaceEvenly,
+            return ValueListenableBuilder<String>(
+                valueListenable:
+                    NotePageViewModel.of(context).selectedComponent,
+                builder: (context, selectedComponent, _) {
+                  return Positioned(
+                      bottom: 0,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        color: Color(0xffD2D3D8),
+                        child: Column(
                           children: [
-                           
-                                   GestureDetector(
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  GestureDetector(
                                     onTap: () {
-                                     
                                       NotePageViewModel.of(context)
                                           .setBoldEnable(
                                               noteId, selectedComponent);
                                     },
                                     child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 10),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
                                       decoration: BoxDecoration(
-                                          color:  Colors.transparent,
+                                          color: Colors.transparent,
                                           border: Border.all(
                                               color: Colors.transparent),
-                                              boxShadow: [
-                                                if(NotePageViewModel.of(context).checkBoldEnabled(selectedComponent))
-                                                BoxShadow(color: Colors.black,
+                                          boxShadow: [
+                                            if (NotePageViewModel.of(context)
+                                                .checkBoldEnabled(
+                                                    selectedComponent))
+                                              BoxShadow(
+                                                color: Colors.black,
                                                 blurStyle: BlurStyle.outer,
-                                                offset: Offset(0,0),
+                                                offset: Offset(0, 0),
                                                 blurRadius: 2,
-
-                                                )
-                                              ]
-                                              ),
-                                              
+                                              )
+                                          ]),
                                       child: Text(
                                         'B',
                                         style: GoogleFonts.robotoSlab(
@@ -71,33 +67,30 @@ class EditTextStyleWidget extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-
-                            GestureDetector(
+                                  GestureDetector(
                                     onTap: () {
-
-                                      NotePageViewModel.of(context).setItalicsEnable(noteId, selectedComponent);
-                                         
+                                      NotePageViewModel.of(context)
+                                          .setItalicsEnable(
+                                              noteId, selectedComponent);
                                     },
                                     child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 12),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 12),
                                       decoration: BoxDecoration(
                                           color: Colors.transparent,
-
                                           border: Border.all(
-                                                  color: Colors
-                                                      .transparent),
-                                                       boxShadow: [
-                                                if(NotePageViewModel.of(context).checkItalicsEnabled(selectedComponent))
-                                                BoxShadow(color: Colors.black,
-
+                                              color: Colors.transparent),
+                                          boxShadow: [
+                                            if (NotePageViewModel.of(context)
+                                                .checkItalicsEnabled(
+                                                    selectedComponent))
+                                              BoxShadow(
+                                                color: Colors.black,
                                                 blurStyle: BlurStyle.outer,
-                                                offset: Offset(0,0),
-                                                
+                                                offset: Offset(0, 0),
                                                 blurRadius: 2,
-
-                                                )
-                                              ]),
+                                              )
+                                          ]),
                                       child: Text(
                                         'I',
                                         style: GoogleFonts.robotoSlab(
@@ -108,32 +101,30 @@ class EditTextStyleWidget extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-
-                            GestureDetector(
+                                  GestureDetector(
                                     onTap: () {
                                       NotePageViewModel.of(context)
-                                              .setUnderline(noteId, selectedComponent);
+                                          .setUnderline(
+                                              noteId, selectedComponent);
                                     },
                                     child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 12),
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 12),
                                       decoration: BoxDecoration(
                                           color: Colors.transparent,
                                           border: Border.all(
-                                                  color: Colors
-                                                      .transparent),
-                                                      
-                                                            boxShadow: [
-                                                if(NotePageViewModel.of(context).checkUnderLineEnabled(selectedComponent))
-                                                BoxShadow(color: Colors.black,
-
+                                              color: Colors.transparent),
+                                          boxShadow: [
+                                            if (NotePageViewModel.of(context)
+                                                .checkUnderLineEnabled(
+                                                    selectedComponent))
+                                              BoxShadow(
+                                                color: Colors.black,
                                                 blurStyle: BlurStyle.outer,
-                                                offset: Offset(0,0),
-                                                
+                                                offset: Offset(0, 0),
                                                 blurRadius: 2,
-
-                                                )
-                                              ]),
+                                              )
+                                          ]),
                                       child: Text(
                                         'U',
                                         style: GoogleFonts.robotoSlab(
@@ -145,11 +136,29 @@ class EditTextStyleWidget extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-
-                          ]),
-                    ));
-              }
-            );
+                                ]),
+                            ValueListenableBuilder(
+                                valueListenable:
+                                    NotePageViewModel.of(context).fontSize,
+                                builder: (context, size, _) {
+                                  return SfSlider(
+                                      showTicks: true,
+                                      showLabels: true,
+                                      showDividers: true,
+                                      interval: 2,
+                                      min: 12,
+                                      max: 24,
+                                      value: size,
+                                      labelPlacement: LabelPlacement.onTicks,
+                                      onChanged: (val) {
+                                        NotePageViewModel.of(context).setFont(
+                                            noteId, selectedComponent, val);
+                                      });
+                                })
+                          ],
+                        ),
+                      ));
+                });
           }
           return SizedBox();
         });
